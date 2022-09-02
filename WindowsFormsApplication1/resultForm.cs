@@ -27,8 +27,6 @@ namespace WindowsFormsApplication1
             string name;
             double first, last;
             textResult.Text = Form1.AverageWaitingTime.ToString();
-            string[] tempArray = new string[Form1.processName.Length];
-
 
             for (int i = 0; i < Form1.processName.Length; i++)
             {

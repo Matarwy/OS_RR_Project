@@ -12,6 +12,7 @@ namespace WindowsFormsApplication1
 {
     public partial class Form1 : Form
     {
+        public static double TimeQuantum;
         public static double AverageWaitingTime;
         public static int numberOFProcesses;
         public static string[] processName; //array for names and first-last values for each process to use in Gantt chart in another form
@@ -83,9 +84,6 @@ namespace WindowsFormsApplication1
             myList = new List<process>();
             Queue<process> queue = new Queue<process>(numberOFProcesses);
             List<ganttChartC> resultList = new List<ganttChartC>();
-            int Q = Convert.ToInt32(AverageWaitingTime); //entered Quantum
-            AverageWaitingTime = 0;
-
             for (int i = 0; i < numberOFProcesses; i++)
             {
                 string textProcess = dataGridView1.Rows[i].Cells[0].Value.ToString();
@@ -97,7 +95,6 @@ namespace WindowsFormsApplication1
                 A.setBurst(Convert.ToDouble(textBurst));
                 myList.Add(A);
             }
-
 
             for (int i = 0; i < myList.Count() - 1; i++)  //sort according to arrival
             {
@@ -115,14 +112,13 @@ namespace WindowsFormsApplication1
             }
 
             double lastArrival = myList[0].getArrival();
-            int count = myList.Count();
-            for (int i = 0; i < count; i++)
+            for (int i = 0; i < myList.Count(); i++)
             {
                 ganttChartC G = new ganttChartC(myList[i].getName());
                 G.start = lastArrival;
                 if (i == 0)  //first process
                 {
-                    if (myList[i].getBurst() <= Q) //then it needs only one round
+                    if (myList[i].getBurst() <= TimeQuantum) //then it needs only one round
                     {
                         G.finish = myList[0].getBurst();
                         resultList.Add(G);
@@ -131,9 +127,9 @@ namespace WindowsFormsApplication1
                     }
                     else
                     {
-                        G.finish = Q;
+                        G.finish = TimeQuantum;
                         lastArrival = G.finish;
-                        double newBurst = myList[i].getBurst() - Q;
+                        double newBurst = myList[i].getBurst() - TimeQuantum;
                         myList[i].setBurst(newBurst);
                         queue.Enqueue(myList[0]);
                         resultList.Add(G);
@@ -145,7 +141,7 @@ namespace WindowsFormsApplication1
                 else
                 {
 
-                    if (myList[i].getBurst() <= Q) //then it needs only one round
+                    if (myList[i].getBurst() <= TimeQuantum) //then it needs only one round
                     {
                         G.finish = myList[i].getBurst() + lastArrival;
                         resultList.Add(G);
@@ -154,9 +150,9 @@ namespace WindowsFormsApplication1
                     }
                     else
                     {
-                        G.finish = Q + lastArrival;
+                        G.finish = TimeQuantum + lastArrival;
                         lastArrival = G.finish;
-                        double newBurst = myList[i].getBurst() - Q;
+                        double newBurst = myList[i].getBurst() - TimeQuantum;
                         myList[i].setBurst(newBurst);
                         queue.Enqueue(myList[i]);
                         resultList.Add(G);
@@ -175,7 +171,7 @@ namespace WindowsFormsApplication1
                 temp = queue.Dequeue();
                 ganttChartC G = new ganttChartC(temp.getName());
                 G.start = lastArrival;
-                if (temp.getBurst() <= Q) //then it needs only one round
+                if (temp.getBurst() <= TimeQuantum) //then it needs only one round
                 {
                     G.finish = temp.getBurst() + lastArrival;
                     resultList.Add(G);
@@ -184,9 +180,9 @@ namespace WindowsFormsApplication1
                 }
                 else
                 {
-                    G.finish = Q + lastArrival;
+                    G.finish = TimeQuantum + lastArrival;
                     lastArrival = G.finish;
-                    double newBurst = temp.getBurst() - Q;
+                    double newBurst = temp.getBurst() - TimeQuantum;
                     temp.setBurst(newBurst);
                     queue.Enqueue(temp);
                     resultList.Add(G);
@@ -204,6 +200,7 @@ namespace WindowsFormsApplication1
                 first_last[i, 0] = resultList[i].start;
                 first_last[i, 1] = resultList[i].finish;
             }
+
             AverageWaitingTime = 0; //to count average waiting time
             for (int i = 0; i < countElements; i++)
             {
@@ -230,7 +227,7 @@ namespace WindowsFormsApplication1
 
         private void txtQuantum_TextChanged(object sender, EventArgs e)
         {
-            AverageWaitingTime = Convert.ToInt32(txtQuantum.Text);
+            TimeQuantum = Convert.ToInt32(txtQuantum.Text);
         }
 
         private void button2_Click(object sender, EventArgs e)

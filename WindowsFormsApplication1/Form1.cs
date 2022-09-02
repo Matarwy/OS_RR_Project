@@ -63,12 +63,10 @@ namespace WindowsFormsApplication1
 
         private void RRToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            chkBox_Scheduler.Checked = true;
-            chkBox_Scheduler.Text = "RR";
+
             Process.Visible = true;
             Burst_Time.Visible = true;
             Arrival_Time.Visible = true;
-            Priority.Visible = false;
             lblQuantum.Visible = true;
             txtQuantum.Visible = true;
         }
@@ -90,7 +88,6 @@ namespace WindowsFormsApplication1
 
             for (int i = 0; i < numberOFProcesses; i++)
             {
-
                 string textProcess = dataGridView1.Rows[i].Cells[0].Value.ToString();
                 string textBurst = dataGridView1.Rows[i].Cells[1].Value.ToString();
                 string textArrival = dataGridView1.Rows[i].Cells[2].Value.ToString();
@@ -99,8 +96,6 @@ namespace WindowsFormsApplication1
                 A.setArrival(Convert.ToDouble(textArrival));
                 A.setBurst(Convert.ToDouble(textBurst));
                 myList.Add(A);
-
-
             }
 
 
@@ -230,11 +225,7 @@ namespace WindowsFormsApplication1
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            txtQuantum.Visible = true;
-            lblQuantum.Visible = true;
-            Process.Visible = false;
-            Burst_Time.Visible = false;
-            Arrival_Time.Visible = false;
+            
         }
 
         private void txtQuantum_TextChanged(object sender, EventArgs e)
@@ -246,6 +237,7 @@ namespace WindowsFormsApplication1
         {
             dataGridView1.Rows.Clear();
         }
+
     }
     class process
     {

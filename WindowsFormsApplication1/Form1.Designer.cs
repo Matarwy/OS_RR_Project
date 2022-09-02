@@ -35,16 +35,9 @@ namespace WindowsFormsApplication1
             this.Process = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Burst_Time = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Arrival_Time = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Priority = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.txtbox_number_processes = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.fCFSToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.sJFpreemptiveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.sJFnonpreemptiveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.prioritypreemptiveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.prioritynonpreemptiveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.chkBox_Scheduler = new System.Windows.Forms.CheckBox();
             this.button1 = new System.Windows.Forms.Button();
             this.txtQuantum = new System.Windows.Forms.TextBox();
             this.lblQuantum = new System.Windows.Forms.Label();
@@ -61,8 +54,7 @@ namespace WindowsFormsApplication1
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Process,
             this.Burst_Time,
-            this.Arrival_Time,
-            this.Priority});
+            this.Arrival_Time,});
             this.dataGridView1.GridColor = System.Drawing.SystemColors.ActiveCaption;
             this.dataGridView1.Location = new System.Drawing.Point(617, 13);
             this.dataGridView1.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
@@ -93,21 +85,15 @@ namespace WindowsFormsApplication1
             this.Arrival_Time.MinimumWidth = 6;
             this.Arrival_Time.Name = "Arrival_Time";
             this.Arrival_Time.Width = 145;
-            // 
-            // Priority
-            // 
-            this.Priority.HeaderText = "Priority";
-            this.Priority.MinimumWidth = 6;
-            this.Priority.Name = "Priority";
-            this.Priority.Width = 125;
+
             // 
             // txtbox_number_processes
             // 
-            this.txtbox_number_processes.Location = new System.Drawing.Point(109, 369);
+            this.txtbox_number_processes.Location = new System.Drawing.Point(354, 165);
             this.txtbox_number_processes.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.txtbox_number_processes.Multiline = true;
             this.txtbox_number_processes.Name = "txtbox_number_processes";
-            this.txtbox_number_processes.Size = new System.Drawing.Size(122, 65);
+            this.txtbox_number_processes.Size = new System.Drawing.Size(74, 38);
             this.txtbox_number_processes.TabIndex = 1;
             this.txtbox_number_processes.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
@@ -122,12 +108,7 @@ namespace WindowsFormsApplication1
             // 
             this.menuStrip1.Dock = System.Windows.Forms.DockStyle.Left;
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fCFSToolStripMenuItem,
-            this.sJFpreemptiveToolStripMenuItem,
-            this.sJFnonpreemptiveToolStripMenuItem,
-            this.prioritypreemptiveToolStripMenuItem,
-            this.prioritynonpreemptiveToolStripMenuItem});
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(10, 3, 0, 3);
@@ -135,43 +116,11 @@ namespace WindowsFormsApplication1
             this.menuStrip1.TabIndex = 5;
             this.menuStrip1.Text = "menuStrip1";
             // 
-            // fCFSToolStripMenuItem
-            // 
-            this.fCFSToolStripMenuItem.Name = "fCFSToolStripMenuItem";
-            this.fCFSToolStripMenuItem.Size = new System.Drawing.Size(3, 4);
-            // 
-            // sJFpreemptiveToolStripMenuItem
-            // 
-            this.sJFpreemptiveToolStripMenuItem.Name = "sJFpreemptiveToolStripMenuItem";
-            this.sJFpreemptiveToolStripMenuItem.Size = new System.Drawing.Size(3, 4);
-            // 
-            // sJFnonpreemptiveToolStripMenuItem
-            // 
-            this.sJFnonpreemptiveToolStripMenuItem.Name = "sJFnonpreemptiveToolStripMenuItem";
-            this.sJFnonpreemptiveToolStripMenuItem.Size = new System.Drawing.Size(3, 4);
-            // 
-            // prioritypreemptiveToolStripMenuItem
-            // 
-            this.prioritypreemptiveToolStripMenuItem.Name = "prioritypreemptiveToolStripMenuItem";
-            this.prioritypreemptiveToolStripMenuItem.Size = new System.Drawing.Size(3, 4);
-            // 
-            // prioritynonpreemptiveToolStripMenuItem
-            // 
-            this.prioritynonpreemptiveToolStripMenuItem.Name = "prioritynonpreemptiveToolStripMenuItem";
-            this.prioritynonpreemptiveToolStripMenuItem.Size = new System.Drawing.Size(3, 4);
-            // 
-            // chkBox_Scheduler
-            // 
-            this.chkBox_Scheduler.Location = new System.Drawing.Point(0, 0);
-            this.chkBox_Scheduler.Name = "chkBox_Scheduler";
-            this.chkBox_Scheduler.Size = new System.Drawing.Size(104, 24);
-            this.chkBox_Scheduler.TabIndex = 11;
-            // 
             // button1
             // 
             this.button1.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.button1.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.button1.Location = new System.Drawing.Point(943, 383);
+            this.button1.Location = new System.Drawing.Point(886, 383);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(227, 67);
             this.button1.TabIndex = 7;
@@ -181,7 +130,7 @@ namespace WindowsFormsApplication1
             // 
             // txtQuantum
             // 
-            this.txtQuantum.Location = new System.Drawing.Point(311, 241);
+            this.txtQuantum.Location = new System.Drawing.Point(354, 90);
             this.txtQuantum.Multiline = true;
             this.txtQuantum.Name = "txtQuantum";
             this.txtQuantum.Size = new System.Drawing.Size(74, 36);
@@ -191,7 +140,7 @@ namespace WindowsFormsApplication1
             // lblQuantum
             // 
             this.lblQuantum.AutoSize = true;
-            this.lblQuantum.Location = new System.Drawing.Point(71, 244);
+            this.lblQuantum.Location = new System.Drawing.Point(52, 90);
             this.lblQuantum.Name = "lblQuantum";
             this.lblQuantum.Size = new System.Drawing.Size(223, 24);
             this.lblQuantum.TabIndex = 9;
@@ -207,7 +156,7 @@ namespace WindowsFormsApplication1
             // 
             this.reset.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.reset.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.reset.Location = new System.Drawing.Point(573, 383);
+            this.reset.Location = new System.Drawing.Point(617, 383);
             this.reset.Name = "reset";
             this.reset.Size = new System.Drawing.Size(215, 67);
             this.reset.TabIndex = 10;
@@ -224,7 +173,6 @@ namespace WindowsFormsApplication1
             this.Controls.Add(this.lblQuantum);
             this.Controls.Add(this.txtQuantum);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.chkBox_Scheduler);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtbox_number_processes);
             this.Controls.Add(this.dataGridView1);
@@ -232,7 +180,6 @@ namespace WindowsFormsApplication1
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.Name = "Form1";
-            this.Text = "Scheduler";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.menuStrip1.ResumeLayout(false);
@@ -253,12 +200,6 @@ namespace WindowsFormsApplication1
         private System.Windows.Forms.TextBox txtbox_number_processes;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.MenuStrip menuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem fCFSToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem sJFpreemptiveToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem sJFnonpreemptiveToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem prioritypreemptiveToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem prioritynonpreemptiveToolStripMenuItem;
-        private System.Windows.Forms.CheckBox chkBox_Scheduler;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.TextBox txtQuantum;
         private System.Windows.Forms.Label lblQuantum;
@@ -267,7 +208,6 @@ namespace WindowsFormsApplication1
         private System.Windows.Forms.DataGridViewTextBoxColumn Process;
         private System.Windows.Forms.DataGridViewTextBoxColumn Burst_Time;
         private System.Windows.Forms.DataGridViewTextBoxColumn Arrival_Time;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Priority;
     }
 }
 

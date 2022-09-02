@@ -252,27 +252,20 @@ namespace WindowsFormsApplication1
         private string name;
         private double Arrival;
         private double Burst;
-        private double Start;
-        private double Finish;
+
 
         public process(string n) {
             name = n;
             Arrival = 0;
             Burst = 0;
-            Finish = 0;
-            Start = 0;
         }
 
         public void setArrival(double a) { Arrival = a; }
         public void setBurst(double a) { Burst = a; }
-        public void setFinish(double a) { Finish = a; }
-        public void setStart(double a) { Start = a; }
 
         public string getName() { return name; }
         public double getArrival() { return Arrival; }
         public double getBurst() { return Burst; }
-        public double getStart() { return Start; }
-        public double getFinish() { return Finish; }
 
         public bool inList(List<process> li, string name)
         {

@@ -201,6 +201,7 @@
             this.chkBox_Scheduler.TabIndex = 6;
             this.chkBox_Scheduler.Text = "Choosen_scheduler";
             this.chkBox_Scheduler.UseVisualStyleBackColor = true;
+            this.chkBox_Scheduler.CheckedChanged += new System.EventHandler(this.chkBox_Scheduler_CheckedChanged);
             // 
             // button1
             // 

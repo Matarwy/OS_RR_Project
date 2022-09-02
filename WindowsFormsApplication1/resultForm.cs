@@ -39,5 +39,10 @@ namespace WindowsFormsApplication1
                 this.GanttChart.Series["process"].Points.AddXY(name, first, last);
             }
         }
+
+        private void textResult_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

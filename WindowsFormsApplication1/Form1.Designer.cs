@@ -43,8 +43,8 @@ namespace WindowsFormsApplication1
             this.lblQuantum = new System.Windows.Forms.Label();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.reset = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
-            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // dataGridView1
@@ -54,7 +54,7 @@ namespace WindowsFormsApplication1
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Process,
             this.Burst_Time,
-            this.Arrival_Time,});
+            this.Arrival_Time});
             this.dataGridView1.GridColor = System.Drawing.SystemColors.ActiveCaption;
             this.dataGridView1.Location = new System.Drawing.Point(617, 13);
             this.dataGridView1.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
@@ -85,7 +85,6 @@ namespace WindowsFormsApplication1
             this.Arrival_Time.MinimumWidth = 6;
             this.Arrival_Time.Name = "Arrival_Time";
             this.Arrival_Time.Width = 145;
-
             // 
             // txtbox_number_processes
             // 
@@ -108,11 +107,10 @@ namespace WindowsFormsApplication1
             // 
             this.menuStrip1.Dock = System.Windows.Forms.DockStyle.Left;
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(10, 3, 0, 3);
-            this.menuStrip1.Size = new System.Drawing.Size(24, 636);
+            this.menuStrip1.Size = new System.Drawing.Size(34, 636);
             this.menuStrip1.TabIndex = 5;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -164,11 +162,22 @@ namespace WindowsFormsApplication1
             this.reset.UseVisualStyleBackColor = false;
             this.reset.Click += new System.EventHandler(this.button2_Click);
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(60, 179);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(215, 24);
+            this.label2.TabIndex = 12;
+            this.label2.Text = "Number Of Processes";
+            this.label2.Click += new System.EventHandler(this.label2_Click_1);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1237, 636);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.reset);
             this.Controls.Add(this.lblQuantum);
             this.Controls.Add(this.txtQuantum);
@@ -182,8 +191,6 @@ namespace WindowsFormsApplication1
             this.Name = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
-            this.menuStrip1.ResumeLayout(false);
-            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -208,6 +215,7 @@ namespace WindowsFormsApplication1
         private System.Windows.Forms.DataGridViewTextBoxColumn Process;
         private System.Windows.Forms.DataGridViewTextBoxColumn Burst_Time;
         private System.Windows.Forms.DataGridViewTextBoxColumn Arrival_Time;
+        private System.Windows.Forms.Label label2;
     }
 }
 

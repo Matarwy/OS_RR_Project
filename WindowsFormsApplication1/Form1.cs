@@ -238,6 +238,10 @@ namespace WindowsFormsApplication1
             dataGridView1.Rows.Clear();
         }
 
+        private void label2_Click_1(object sender, EventArgs e)
+        {
+
+        }
     }
     class process
     {

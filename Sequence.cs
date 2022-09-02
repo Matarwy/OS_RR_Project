@@ -8,5 +8,13 @@ namespace OS_Project
 {
     internal class Sequence
     {
+
+
+        public int avg()
+        {
+
+
+            return 0;
+        }
     }
 }

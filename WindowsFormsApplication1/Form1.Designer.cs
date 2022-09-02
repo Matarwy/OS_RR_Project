@@ -1,4 +1,6 @@
-﻿namespace WindowsFormsApplication1
+﻿using System;
+
+namespace WindowsFormsApplication1
 {
     partial class Form1
     {
@@ -37,13 +39,11 @@
             this.txtbox_number_processes = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.clickHereToChooseASchedulerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fCFSToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sJFpreemptiveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sJFnonpreemptiveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.prioritypreemptiveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.prioritynonpreemptiveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.rRToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.chkBox_Scheduler = new System.Windows.Forms.CheckBox();
             this.button1 = new System.Windows.Forms.Button();
             this.txtQuantum = new System.Windows.Forms.TextBox();
@@ -113,95 +113,59 @@
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(71, 315);
-            this.label1.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.label1.Location = new System.Drawing.Point(0, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(263, 24);
-            this.label1.TabIndex = 4;
-            this.label1.Text = "Enter number of processes";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
+            this.label1.Size = new System.Drawing.Size(100, 23);
+            this.label1.TabIndex = 11;
             // 
             // menuStrip1
             // 
             this.menuStrip1.Dock = System.Windows.Forms.DockStyle.Left;
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.clickHereToChooseASchedulerToolStripMenuItem,
             this.fCFSToolStripMenuItem,
             this.sJFpreemptiveToolStripMenuItem,
             this.sJFnonpreemptiveToolStripMenuItem,
             this.prioritypreemptiveToolStripMenuItem,
-            this.prioritynonpreemptiveToolStripMenuItem,
-            this.rRToolStripMenuItem});
+            this.prioritynonpreemptiveToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(10, 3, 0, 3);
-            this.menuStrip1.Size = new System.Drawing.Size(194, 636);
+            this.menuStrip1.Size = new System.Drawing.Size(24, 636);
             this.menuStrip1.TabIndex = 5;
             this.menuStrip1.Text = "menuStrip1";
-            // 
-            // clickHereToChooseASchedulerToolStripMenuItem
-            // 
-            this.clickHereToChooseASchedulerToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.clickHereToChooseASchedulerToolStripMenuItem.Name = "clickHereToChooseASchedulerToolStripMenuItem";
-            this.clickHereToChooseASchedulerToolStripMenuItem.Size = new System.Drawing.Size(173, 27);
-            this.clickHereToChooseASchedulerToolStripMenuItem.Text = "Choose a scheduler";
-            this.clickHereToChooseASchedulerToolStripMenuItem.Click += new System.EventHandler(this.clickHereToChooseASchedulerToolStripMenuItem_Click);
             // 
             // fCFSToolStripMenuItem
             // 
             this.fCFSToolStripMenuItem.Name = "fCFSToolStripMenuItem";
-            this.fCFSToolStripMenuItem.Size = new System.Drawing.Size(173, 24);
-            this.fCFSToolStripMenuItem.Text = "FCFS";
-            this.fCFSToolStripMenuItem.Click += new System.EventHandler(this.fCFSToolStripMenuItem_Click);
+            this.fCFSToolStripMenuItem.Size = new System.Drawing.Size(3, 4);
             // 
             // sJFpreemptiveToolStripMenuItem
             // 
             this.sJFpreemptiveToolStripMenuItem.Name = "sJFpreemptiveToolStripMenuItem";
-            this.sJFpreemptiveToolStripMenuItem.Size = new System.Drawing.Size(173, 24);
-            this.sJFpreemptiveToolStripMenuItem.Text = "SJF_preemptive";
-            this.sJFpreemptiveToolStripMenuItem.Click += new System.EventHandler(this.sJFpreemptiveToolStripMenuItem_Click);
+            this.sJFpreemptiveToolStripMenuItem.Size = new System.Drawing.Size(3, 4);
             // 
             // sJFnonpreemptiveToolStripMenuItem
             // 
             this.sJFnonpreemptiveToolStripMenuItem.Name = "sJFnonpreemptiveToolStripMenuItem";
-            this.sJFnonpreemptiveToolStripMenuItem.Size = new System.Drawing.Size(173, 24);
-            this.sJFnonpreemptiveToolStripMenuItem.Text = "SJF_non_preemptive";
-            this.sJFnonpreemptiveToolStripMenuItem.Click += new System.EventHandler(this.sJFnonpreemptiveToolStripMenuItem_Click);
+            this.sJFnonpreemptiveToolStripMenuItem.Size = new System.Drawing.Size(3, 4);
             // 
             // prioritypreemptiveToolStripMenuItem
             // 
             this.prioritypreemptiveToolStripMenuItem.Name = "prioritypreemptiveToolStripMenuItem";
-            this.prioritypreemptiveToolStripMenuItem.Size = new System.Drawing.Size(173, 24);
-            this.prioritypreemptiveToolStripMenuItem.Text = "priority_preemptive";
-            this.prioritypreemptiveToolStripMenuItem.Click += new System.EventHandler(this.prioritypreemptiveToolStripMenuItem_Click);
+            this.prioritypreemptiveToolStripMenuItem.Size = new System.Drawing.Size(3, 4);
             // 
             // prioritynonpreemptiveToolStripMenuItem
             // 
             this.prioritynonpreemptiveToolStripMenuItem.Name = "prioritynonpreemptiveToolStripMenuItem";
-            this.prioritynonpreemptiveToolStripMenuItem.Size = new System.Drawing.Size(173, 24);
-            this.prioritynonpreemptiveToolStripMenuItem.Text = "priority_non_preemptive";
-            this.prioritynonpreemptiveToolStripMenuItem.Click += new System.EventHandler(this.prioritynonpreemptiveToolStripMenuItem_Click);
-            // 
-            // rRToolStripMenuItem
-            // 
-            this.rRToolStripMenuItem.Name = "rRToolStripMenuItem";
-            this.rRToolStripMenuItem.Size = new System.Drawing.Size(173, 24);
-            this.rRToolStripMenuItem.Text = "RR";
-            this.rRToolStripMenuItem.Click += new System.EventHandler(this.rRToolStripMenuItem_Click);
+            this.prioritynonpreemptiveToolStripMenuItem.Size = new System.Drawing.Size(3, 4);
             // 
             // chkBox_Scheduler
             // 
-            this.chkBox_Scheduler.AutoSize = true;
-            this.chkBox_Scheduler.Location = new System.Drawing.Point(234, 175);
+            this.chkBox_Scheduler.Location = new System.Drawing.Point(0, 0);
             this.chkBox_Scheduler.Name = "chkBox_Scheduler";
-            this.chkBox_Scheduler.Size = new System.Drawing.Size(220, 28);
-            this.chkBox_Scheduler.TabIndex = 6;
-            this.chkBox_Scheduler.Text = "Choosen_scheduler";
-            this.chkBox_Scheduler.UseVisualStyleBackColor = true;
-            this.chkBox_Scheduler.CheckedChanged += new System.EventHandler(this.chkBox_Scheduler_CheckedChanged);
+            this.chkBox_Scheduler.Size = new System.Drawing.Size(104, 24);
+            this.chkBox_Scheduler.TabIndex = 11;
             // 
             // button1
             // 
@@ -232,6 +196,7 @@
             this.lblQuantum.Size = new System.Drawing.Size(223, 24);
             this.lblQuantum.TabIndex = 9;
             this.lblQuantum.Text = "Enter desired quantum";
+            this.lblQuantum.Click += new System.EventHandler(this.lblQuantum_Click);
             // 
             // notifyIcon1
             // 
@@ -277,19 +242,22 @@
 
         }
 
+        private void lblQuantum_Click(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
         #endregion
 
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.TextBox txtbox_number_processes;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.MenuStrip menuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem clickHereToChooseASchedulerToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem fCFSToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem sJFpreemptiveToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem sJFnonpreemptiveToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem prioritypreemptiveToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem prioritynonpreemptiveToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem rRToolStripMenuItem;
         private System.Windows.Forms.CheckBox chkBox_Scheduler;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.TextBox txtQuantum;

@@ -61,7 +61,7 @@ namespace WindowsFormsApplication1
             }
         }
 
-        private void rRToolStripMenuItem_Click(object sender, EventArgs e)
+        private void RRToolStripMenuItem_Click(object sender, EventArgs e)
         {
             chkBox_Scheduler.Checked = true;
             chkBox_Scheduler.Text = "RR";
@@ -230,12 +230,11 @@ namespace WindowsFormsApplication1
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            txtQuantum.Visible = false;
-            lblQuantum.Visible = false;
+            txtQuantum.Visible = true;
+            lblQuantum.Visible = true;
             Process.Visible = false;
             Burst_Time.Visible = false;
             Arrival_Time.Visible = false;
-            Priority.Visible = false;
         }
 
         private void txtQuantum_TextChanged(object sender, EventArgs e)
@@ -246,13 +245,6 @@ namespace WindowsFormsApplication1
         private void button2_Click(object sender, EventArgs e)
         {
             dataGridView1.Rows.Clear();
-           
-            
-        }
-
-        private void chkBox_Scheduler_CheckedChanged(object sender, EventArgs e)
-        {
-
         }
     }
     class process
@@ -267,7 +259,7 @@ namespace WindowsFormsApplication1
             name = n;
             Arrival = 0;
             Burst = 0;
-            ;Finish = 0;
+            Finish = 0;
             Start = 0;
         }
 

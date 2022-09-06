@@ -26,19 +26,30 @@ namespace WindowsFormsApplication1
         {
             string name;
             double first, last;
-            textResult.Text = Form1.AverageWaitingTime.ToString();
+            AWTResult.Text = Form1.AverageWaitingTime.ToString();
+            ATATResult.Text = Form1.AverageTurnAroundTime.ToString();
 
-            for (int i = 0; i < Form1.processName.Length; i++)
+            for (int i = 0; i < Form1.ganttChartResultList.Count(); i++)
             {
-                name = Form1.processName[i];
-                first = Form1.first_last[i, 0];
-                last = Form1.first_last[i, 1];
+                name = Form1.ganttChartResultList[i].name;
+                first = Form1.ganttChartResultList[i].start;
+                last = Form1.ganttChartResultList[i].finish;
 
                 this.GanttChart.Series["process"].Points.AddXY(name, first, last);
             }
         }
 
-        private void textResult_TextChanged(object sender, EventArgs e)
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ATATResult_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void AWTResult_TextChanged(object sender, EventArgs e)
         {
 
         }

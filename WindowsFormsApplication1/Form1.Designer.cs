@@ -38,11 +38,11 @@ namespace WindowsFormsApplication1
             this.txtbox_number_processes = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.button1 = new System.Windows.Forms.Button();
+            this.SubmitProcessesDataBtn = new System.Windows.Forms.Button();
             this.txtQuantum = new System.Windows.Forms.TextBox();
             this.lblQuantum = new System.Windows.Forms.Label();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
-            this.reset = new System.Windows.Forms.Button();
+            this.resetBtn = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
@@ -94,7 +94,7 @@ namespace WindowsFormsApplication1
             this.txtbox_number_processes.Name = "txtbox_number_processes";
             this.txtbox_number_processes.Size = new System.Drawing.Size(74, 38);
             this.txtbox_number_processes.TabIndex = 1;
-            this.txtbox_number_processes.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            this.txtbox_number_processes.TextChanged += new System.EventHandler(this.NumOfProcesses_TextChanged);
             // 
             // label1
             // 
@@ -114,17 +114,17 @@ namespace WindowsFormsApplication1
             this.menuStrip1.TabIndex = 5;
             this.menuStrip1.Text = "menuStrip1";
             // 
-            // button1
+            // SubmitProcessesDataBtn
             // 
-            this.button1.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.button1.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.button1.Location = new System.Drawing.Point(886, 383);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(227, 67);
-            this.button1.TabIndex = 7;
-            this.button1.Text = "Submit";
-            this.button1.UseVisualStyleBackColor = false;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.SubmitProcessesDataBtn.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.SubmitProcessesDataBtn.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.SubmitProcessesDataBtn.Location = new System.Drawing.Point(886, 383);
+            this.SubmitProcessesDataBtn.Name = "SubmitProcessesDataBtn";
+            this.SubmitProcessesDataBtn.Size = new System.Drawing.Size(227, 67);
+            this.SubmitProcessesDataBtn.TabIndex = 7;
+            this.SubmitProcessesDataBtn.Text = "Submit";
+            this.SubmitProcessesDataBtn.UseVisualStyleBackColor = false;
+            this.SubmitProcessesDataBtn.Click += new System.EventHandler(this.SubmitProcessesDataBtn_Click);
             // 
             // txtQuantum
             // 
@@ -150,17 +150,17 @@ namespace WindowsFormsApplication1
             this.notifyIcon1.Text = "notifyIcon1";
             this.notifyIcon1.Visible = true;
             // 
-            // reset
+            // resetBtn
             // 
-            this.reset.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.reset.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.reset.Location = new System.Drawing.Point(617, 383);
-            this.reset.Name = "reset";
-            this.reset.Size = new System.Drawing.Size(215, 67);
-            this.reset.TabIndex = 10;
-            this.reset.Text = "Reset";
-            this.reset.UseVisualStyleBackColor = false;
-            this.reset.Click += new System.EventHandler(this.button2_Click);
+            this.resetBtn.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.resetBtn.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.resetBtn.Location = new System.Drawing.Point(617, 383);
+            this.resetBtn.Name = "resetBtn";
+            this.resetBtn.Size = new System.Drawing.Size(215, 67);
+            this.resetBtn.TabIndex = 10;
+            this.resetBtn.Text = "Reset";
+            this.resetBtn.UseVisualStyleBackColor = false;
+            this.resetBtn.Click += new System.EventHandler(this.resetBtn_Click);
             // 
             // label2
             // 
@@ -178,10 +178,10 @@ namespace WindowsFormsApplication1
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1237, 636);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.reset);
+            this.Controls.Add(this.resetBtn);
             this.Controls.Add(this.lblQuantum);
             this.Controls.Add(this.txtQuantum);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.SubmitProcessesDataBtn);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtbox_number_processes);
             this.Controls.Add(this.dataGridView1);
@@ -207,11 +207,11 @@ namespace WindowsFormsApplication1
         private System.Windows.Forms.TextBox txtbox_number_processes;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.MenuStrip menuStrip1;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button SubmitProcessesDataBtn;
         private System.Windows.Forms.TextBox txtQuantum;
         private System.Windows.Forms.Label lblQuantum;
         private System.Windows.Forms.NotifyIcon notifyIcon1;
-        private System.Windows.Forms.Button reset;
+        private System.Windows.Forms.Button resetBtn;
         private System.Windows.Forms.DataGridViewTextBoxColumn Process;
         private System.Windows.Forms.DataGridViewTextBoxColumn Burst_Time;
         private System.Windows.Forms.DataGridViewTextBoxColumn Arrival_Time;

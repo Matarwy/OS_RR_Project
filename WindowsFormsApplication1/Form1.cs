@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace WindowsFormsApplication1
 {
@@ -14,14 +15,15 @@ namespace WindowsFormsApplication1
     {
         public static double TimeQuantum;
         public static double AverageWaitingTime;
+        public static double AverageTurnAroundTime;
         public static int numberOFProcesses;
-        public static string[] processName; //array for names and first-last values for each process to use in Gantt chart in another form
-        public static double[,] first_last;
-         List<process> myList;
+
+        //array for Processes & RR Schudling Resulet values for each process to use in Gantt chart in another form
+        List<Process> processesDataList;
+        public static List<ganttChartC> ganttChartResultList;
         public Form1()
         {
             InitializeComponent();
-            myList = new List<process>();
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -29,28 +31,10 @@ namespace WindowsFormsApplication1
 
         }
 
-        private void vScrollBar1_Scroll(object sender, ScrollEventArgs e)
+        private void NumOfProcesses_TextChanged(object sender, EventArgs e)
         {
+            dataGridView1.Rows.Clear();
 
-        }
-
-        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void chooseASchedulerToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void clickHereToChooseASchedulerToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
             if (txtbox_number_processes.Text != "")
             {
                 numberOFProcesses = Convert.ToInt32(txtbox_number_processes.Text);
@@ -62,167 +46,150 @@ namespace WindowsFormsApplication1
             }
         }
 
-        private void RRToolStripMenuItem_Click(object sender, EventArgs e)
+
+        private void SubmitProcessesDataBtn_Click(object sender, EventArgs e)
         {
+            resultForm SchudilingResults = new resultForm();
 
-            Process.Visible = true;
-            Burst_Time.Visible = true;
-            Arrival_Time.Visible = true;
-            lblQuantum.Visible = true;
-            txtQuantum.Visible = true;
-        }
+            processesDataList = new List<Process>();
+            ganttChartResultList = new List<ganttChartC>();
+            Queue<Process> processesQueue = new Queue<Process>(numberOFProcesses);
 
-        private void label2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            resultForm f = new resultForm();
-
-            myList = new List<process>();
-            Queue<process> queue = new Queue<process>(numberOFProcesses);
-            List<ganttChartC> resultList = new List<ganttChartC>();
+            //Fill Processes List with the data in  Grid View
             for (int i = 0; i < numberOFProcesses; i++)
             {
                 string textProcess = dataGridView1.Rows[i].Cells[0].Value.ToString();
                 string textBurst = dataGridView1.Rows[i].Cells[1].Value.ToString();
                 string textArrival = dataGridView1.Rows[i].Cells[2].Value.ToString();
 
-                process A = new process(textProcess); //creating object A in class process
-                A.setArrival(Convert.ToDouble(textArrival));
-                A.setBurst(Convert.ToDouble(textBurst));
-                myList.Add(A);
+                //creating object A in class process
+                Process A = new Process(textProcess);
+                A.Arrival = Convert.ToDouble(textArrival);
+                A.Burst = Convert.ToDouble(textBurst);
+                processesDataList.Add(A);
             }
 
-            for (int i = 0; i < myList.Count() - 1; i++)  //sort according to arrival
+            //sort Processes according to arrival
+            processesDataList = processesDataList.OrderBy(process => process.Arrival).ToList();
+
+            double lastArrival = processesDataList[0].Arrival;
+            for (int i = 0; i < processesDataList.Count(); i++)
             {
-
-                for (int j = i + 1; j < myList.Count(); j++)
-                {
-
-                    if (myList[i].getArrival() > myList[j].getArrival()) //swap 
-                    {
-                        process temp = myList[i];
-                        myList[i] = myList[j];
-                        myList[j] = temp;
-                    }
-                }
-            }
-
-            double lastArrival = myList[0].getArrival();
-            for (int i = 0; i < myList.Count(); i++)
-            {
-                ganttChartC G = new ganttChartC(myList[i].getName());
+                Process temp = processesDataList[i];
+                ganttChartC G = new ganttChartC(temp.Name);
                 G.start = lastArrival;
-                if (i == 0)  //first process
+                //first process
+                if (i == 0)
                 {
-                    if (myList[i].getBurst() <= TimeQuantum) //then it needs only one round
+                    //then it needs only one round
+                    if (temp.Burst <= TimeQuantum)
                     {
-                        G.finish = myList[0].getBurst();
-                        resultList.Add(G);
+                        G.finish = processesDataList[0].Burst;
+                        ganttChartResultList.Add(G);
                         lastArrival = G.finish;
-
+                        processesDataList[i].setExitTime(lastArrival);
                     }
                     else
                     {
                         G.finish = TimeQuantum;
                         lastArrival = G.finish;
-                        double newBurst = myList[i].getBurst() - TimeQuantum;
-                        myList[i].setBurst(newBurst);
-                        queue.Enqueue(myList[0]);
-                        resultList.Add(G);
-
-
-
+                        processesDataList[i].setExitTime(lastArrival);
+                        double newBurst = processesDataList[i].Burst - TimeQuantum;
+                        temp.Burst = newBurst;
+                        processesQueue.Enqueue(temp);
+                        ganttChartResultList.Add(G);
                     }
                 }
                 else
                 {
-
-                    if (myList[i].getBurst() <= TimeQuantum) //then it needs only one round
+                    //then it needs only one round
+                    if (temp.Burst <= TimeQuantum)
                     {
-                        G.finish = myList[i].getBurst() + lastArrival;
-                        resultList.Add(G);
+                        G.finish = processesDataList[i].Burst + lastArrival;
+                        ganttChartResultList.Add(G);
                         lastArrival = G.finish;
+                        processesDataList[i].setExitTime(lastArrival);
 
                     }
                     else
                     {
                         G.finish = TimeQuantum + lastArrival;
                         lastArrival = G.finish;
-                        double newBurst = myList[i].getBurst() - TimeQuantum;
-                        myList[i].setBurst(newBurst);
-                        queue.Enqueue(myList[i]);
-                        resultList.Add(G);
-
-
-
+                        processesDataList[i].setExitTime(lastArrival);
+                        double newBurst = processesDataList[i].Burst - TimeQuantum;
+                        temp.Burst = newBurst;
+                        processesQueue.Enqueue(temp);
+                        ganttChartResultList.Add(G);
                     }
-
-
                 }
             }
 
-            while (queue.Count() > 0)
+            while (processesQueue.Count() > 0)
             {
-                process temp;
-                temp = queue.Dequeue();
-                ganttChartC G = new ganttChartC(temp.getName());
+                Process temp = processesQueue.Dequeue();
+                ganttChartC G = new ganttChartC(temp.Name);
                 G.start = lastArrival;
-                if (temp.getBurst() <= TimeQuantum) //then it needs only one round
+                //then it needs only one round
+                if (temp.Burst <= TimeQuantum)
                 {
-                    G.finish = temp.getBurst() + lastArrival;
-                    resultList.Add(G);
+                    G.finish = temp.Burst + lastArrival;
+                    ganttChartResultList.Add(G);
                     lastArrival = G.finish;
+                    for (int i = 0; i < processesDataList.Count(); i++)
+                    {
+                        if (temp.Name == processesDataList[i].Name && temp.Arrival == processesDataList[i].Arrival)
+                        {
+                            processesDataList[i].setExitTime(lastArrival);
+                        }
+                    }
 
                 }
                 else
                 {
                     G.finish = TimeQuantum + lastArrival;
                     lastArrival = G.finish;
-                    double newBurst = temp.getBurst() - TimeQuantum;
-                    temp.setBurst(newBurst);
-                    queue.Enqueue(temp);
-                    resultList.Add(G);
-
+                    for (int i = 0; i < processesDataList.Count(); i++)
+                    {
+                        if (temp.Name == processesDataList[i].Name && temp.Arrival == processesDataList[i].Arrival)
+                        {
+                            processesDataList[i].setExitTime(lastArrival);
+                        }
+                    }
+                    double newBurst = temp.Burst - TimeQuantum;
+                    temp.Burst = newBurst;
+                    processesQueue.Enqueue(temp);
+                    ganttChartResultList.Add(G);
                 }
             }
 
-            int countElements = myList.Count();
-            countElements = resultList.Count();
-            processName = new string[countElements];
-            first_last = new double[countElements, countElements];
-            for (int i = 0; i < countElements; i++) //fill array for gantt chart
+            //to count average Turn Around time
+            for (int i = 0; i < processesDataList.Count(); i++)
             {
-                processName[i] = resultList[i].name;
-                first_last[i, 0] = resultList[i].start;
-                first_last[i, 1] = resultList[i].finish;
+                double tat = processesDataList[i].getExitTime() - processesDataList[i].Arrival;
+                processesDataList[i].setTurnAroundTime(tat);
+                AverageTurnAroundTime += processesDataList[i].getTurnAroundTime();
+                Console.WriteLine(tat.ToString());
+                Console.WriteLine(AverageTurnAroundTime.ToString());
             }
-
-            AverageWaitingTime = 0; //to count average waiting time
-            for (int i = 0; i < countElements; i++)
+            AverageTurnAroundTime /= numberOFProcesses;
+            
+            //to count average waiting time
+            for (int i = 0; i < processesDataList.Count(); i++)
             {
-                string name = resultList[i].name;
-                int j;
-                for (j = 0; j < numberOFProcesses; j++)
-                {
-                    if (myList[j].getName() == name)
-                        break;
-                }
-                AverageWaitingTime += resultList[i].start - myList[j].getArrival(); //start time-Arrival time
-                myList[j].setArrival(resultList[i].finish);
+                double wt = processesDataList[i].getTurnAroundTime() - processesDataList[i].Burst;
+                processesDataList[i].setWaitingTime(wt);
+                AverageWaitingTime += processesDataList[i].getWaitingTime();
+                Console.WriteLine(wt.ToString());
+                Console.WriteLine(AverageWaitingTime.ToString());
             }
-
             AverageWaitingTime /= numberOFProcesses;
 
-            f.ShowDialog();
+            SchudilingResults.ShowDialog();
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            
+
         }
 
         private void txtQuantum_TextChanged(object sender, EventArgs e)
@@ -230,7 +197,7 @@ namespace WindowsFormsApplication1
             TimeQuantum = Convert.ToInt32(txtQuantum.Text);
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void resetBtn_Click(object sender, EventArgs e)
         {
             dataGridView1.Rows.Clear();
         }
@@ -240,31 +207,38 @@ namespace WindowsFormsApplication1
 
         }
     }
-    class process
+    class Process
     {
-        private string name;
-        private double Arrival;
-        private double Burst;
+        public string Name;
+        public double Arrival;
+        public double Burst;
+        private double ExitTime;
+        private double TurnAroundTime;
+        private double WaitingTime;
 
-
-        public process(string n) {
-            name = n;
+        public Process(string n)
+        {
+            Name = n;
             Arrival = 0;
             Burst = 0;
+            ExitTime = 0;
+            TurnAroundTime = 0;
+            WaitingTime = 0;
         }
 
-        public void setArrival(double a) { Arrival = a; }
-        public void setBurst(double a) { Burst = a; }
+        public void setExitTime(double a) { ExitTime = a; }
+        public void setTurnAroundTime(double a) { TurnAroundTime = a; }
+        public void setWaitingTime(double a) { WaitingTime = a; }
 
-        public string getName() { return name; }
-        public double getArrival() { return Arrival; }
-        public double getBurst() { return Burst; }
+        public double getExitTime() { return ExitTime; }
+        public double getTurnAroundTime() { return TurnAroundTime; }
+        public double getWaitingTime() { return WaitingTime; }
 
-        public bool inList(List<process> li, string name)
+        public bool inList(List<Process> li, string name)
         {
             for (int i = 0; i < li.Count(); i++)
             {
-                if (li[i].getName() == name) return true;
+                if (li[i].Name == name) return true;
             }
             return false;
         }
@@ -272,14 +246,14 @@ namespace WindowsFormsApplication1
 
 
 
-    class ganttChartC
+    public class ganttChartC
     {
         public string name;
         public double start, finish;
 
-        public ganttChartC(string name2)
+        public ganttChartC(string _name)
         {
-            name = name2;
+            name = _name;
             start = 0;
             finish = 0;
         }

@@ -21,6 +21,7 @@ namespace WindowsFormsApplication1
         //array for Processes & RR Schudling Resulet values for each process to use in Gantt chart in another form
         List<Process> processesDataList;
         public static List<ganttChartC> ganttChartResultList;
+
         public Form1()
         {
             InitializeComponent();
@@ -66,6 +67,7 @@ namespace WindowsFormsApplication1
                 Process A = new Process(textProcess);
                 A.Arrival = Convert.ToDouble(textArrival);
                 A.Burst = Convert.ToDouble(textBurst);
+                A.oldBurst = Convert.ToDouble(textBurst);
                 processesDataList.Add(A);
             }
 
@@ -168,21 +170,25 @@ namespace WindowsFormsApplication1
                 double tat = processesDataList[i].getExitTime() - processesDataList[i].Arrival;
                 processesDataList[i].setTurnAroundTime(tat);
                 AverageTurnAroundTime += processesDataList[i].getTurnAroundTime();
+                Console.WriteLine("Turn Around Time " + processesDataList[i].Name);
                 Console.WriteLine(tat.ToString());
-                Console.WriteLine(AverageTurnAroundTime.ToString());
             }
             AverageTurnAroundTime /= numberOFProcesses;
-            
+            Console.WriteLine("Average Turn Around Time");
+            Console.WriteLine(AverageTurnAroundTime);
+
             //to count average waiting time
             for (int i = 0; i < processesDataList.Count(); i++)
             {
-                double wt = processesDataList[i].getTurnAroundTime() - processesDataList[i].Burst;
+                double wt = processesDataList[i].getTurnAroundTime() - processesDataList[i].oldBurst;
                 processesDataList[i].setWaitingTime(wt);
                 AverageWaitingTime += processesDataList[i].getWaitingTime();
+                Console.WriteLine("Waiting Times " + processesDataList[i].Name);
                 Console.WriteLine(wt.ToString());
-                Console.WriteLine(AverageWaitingTime.ToString());
             }
             AverageWaitingTime /= numberOFProcesses;
+            Console.WriteLine("Average Waiting Time");
+            Console.WriteLine(AverageWaitingTime);
 
             SchudilingResults.ShowDialog();
         }
@@ -212,6 +218,7 @@ namespace WindowsFormsApplication1
         public string Name;
         public double Arrival;
         public double Burst;
+        public double oldBurst;
         private double ExitTime;
         private double TurnAroundTime;
         private double WaitingTime;
@@ -221,6 +228,7 @@ namespace WindowsFormsApplication1
             Name = n;
             Arrival = 0;
             Burst = 0;
+            oldBurst = 0;
             ExitTime = 0;
             TurnAroundTime = 0;
             WaitingTime = 0;

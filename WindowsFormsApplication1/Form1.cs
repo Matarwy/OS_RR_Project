@@ -114,8 +114,7 @@ namespace WindowsFormsApplication1
                         }
                     }
 
-                    double newBurst = temp.Burst - TimeQuantum;
-                    temp.Burst = newBurst;
+                    temp.Burst -= TimeQuantum;
                     //enqueue process to the queue for continu working on it lateer
                     processesQueue.Enqueue(temp);
                     //add result to gantt chart array list

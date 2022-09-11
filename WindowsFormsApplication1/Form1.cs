@@ -70,71 +70,16 @@ namespace WindowsFormsApplication1
             //sort Processes according to arrival
             processesDataList = processesDataList.OrderBy(process => process.Arrival).ToList();
 
-            double lastArrival = processesDataList[0].Arrival;
+            //fill the queue from processes data list to working on it lateer
             for (int i = 0; i < processesDataList.Count(); i++)
             {
-                Process temp = processesDataList[i];
-                ganttChartC G = new ganttChartC(temp.Name);
-                G.start = lastArrival;
-                //first process
-                if (i == 0)
-                {
-                    if (temp.Burst <= TimeQuantum)
-                    {
-                        //it needs only one round
-                        G.finish = processesDataList[0].Burst;
-                        lastArrival = G.finish;
-                        //add result to gantt chart array list
-                        ganttChartResultList.Add(G);
-                        //set exit time for current process
-                        processesDataList[i].setExitTime(lastArrival);
-                    }
-                    else
-                    {
-                        G.finish = TimeQuantum;
-                        lastArrival = G.finish;
-                        //set exit time for current process
-                        processesDataList[i].setExitTime(lastArrival);
-                        double newBurst = processesDataList[i].Burst - TimeQuantum;
-                        temp.Burst = newBurst;
-                        //enqueue process to the queue for continu working on it lateer
-                        processesQueue.Enqueue(temp);
-                        //add result to gantt chart array list
-                        ganttChartResultList.Add(G);
-                    }
-                }
-                else
-                {
-                    if (temp.Burst <= TimeQuantum)
-                    {
-                        //it needs only one round
-                        G.finish = processesDataList[i].Burst + lastArrival;
-                        lastArrival = G.finish;
-                        //add result to gantt chart array list
-                        ganttChartResultList.Add(G);
-                        //set exit time for current process
-                        processesDataList[i].setExitTime(lastArrival);
-
-                    }
-                    else
-                    {
-                        G.finish = TimeQuantum + lastArrival;
-                        lastArrival = G.finish;
-                        //set exit time for current process
-                        processesDataList[i].setExitTime(lastArrival);
-                        double newBurst = processesDataList[i].Burst - TimeQuantum;
-                        temp.Burst = newBurst;
-                        //enqueue process to the queue for continu working on it lateer
-                        processesQueue.Enqueue(temp);
-                        //add result to gantt chart array list
-                        ganttChartResultList.Add(G);
-                    }
-                }
+                processesQueue.Enqueue(processesDataList[i]);
             }
 
+            //working on the queue to get schduling result list
+            double lastArrival = processesDataList[0].Arrival;
             while (processesQueue.Count() > 0)
             {
-
                 Process temp = processesQueue.Dequeue();
                 ganttChartC G = new ganttChartC(temp.Name);
                 G.start = lastArrival;

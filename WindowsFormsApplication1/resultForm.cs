@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace WindowsFormsApplication1
@@ -26,7 +20,9 @@ namespace WindowsFormsApplication1
         {
             string name;
             double first, last;
+            //show average waiting time in raed only text box
             AWTResult.Text = Form1.AverageWaitingTime.ToString();
+            //show average turn around time in raed only text box
             ATATResult.Text = Form1.AverageTurnAroundTime.ToString();
 
             for (int i = 0; i < Form1.ganttChartResultList.Count(); i++)
@@ -34,7 +30,7 @@ namespace WindowsFormsApplication1
                 name = Form1.ganttChartResultList[i].name;
                 first = Form1.ganttChartResultList[i].start;
                 last = Form1.ganttChartResultList[i].finish;
-
+                // add series to gantt chart with the name of processes on Y axis and line start from first time to last time on X axis
                 this.GanttChart.Series["process"].Points.AddXY(name, first, last);
             }
         }

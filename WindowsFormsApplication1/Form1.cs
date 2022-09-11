@@ -1,13 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace WindowsFormsApplication1
 {
@@ -38,8 +33,9 @@ namespace WindowsFormsApplication1
 
             if (txtbox_number_processes.Text != "")
             {
+                // save number of processes
                 numberOFProcesses = Convert.ToInt32(txtbox_number_processes.Text);
-
+                //add number of rows to data grid view equle number of processes
                 for (int i = 0; i < numberOFProcesses; i++)
                 {
                     dataGridView1.Rows.Add();
@@ -56,7 +52,7 @@ namespace WindowsFormsApplication1
             ganttChartResultList = new List<ganttChartC>();
             Queue<Process> processesQueue = new Queue<Process>(numberOFProcesses);
 
-            //Fill Processes List with the data in  Grid View
+            //Fill Processes List with data from  Grid View
             for (int i = 0; i < numberOFProcesses; i++)
             {
                 string textProcess = dataGridView1.Rows[i].Cells[0].Value.ToString();
@@ -83,33 +79,40 @@ namespace WindowsFormsApplication1
                 //first process
                 if (i == 0)
                 {
-                    //then it needs only one round
                     if (temp.Burst <= TimeQuantum)
                     {
+                        //it needs only one round
                         G.finish = processesDataList[0].Burst;
-                        ganttChartResultList.Add(G);
                         lastArrival = G.finish;
+                        //add result to gantt chart array list
+                        ganttChartResultList.Add(G);
+                        //set exit time for current process
                         processesDataList[i].setExitTime(lastArrival);
                     }
                     else
                     {
                         G.finish = TimeQuantum;
                         lastArrival = G.finish;
+                        //set exit time for current process
                         processesDataList[i].setExitTime(lastArrival);
                         double newBurst = processesDataList[i].Burst - TimeQuantum;
                         temp.Burst = newBurst;
+                        //enqueue process to the queue for continu working on it lateer
                         processesQueue.Enqueue(temp);
+                        //add result to gantt chart array list
                         ganttChartResultList.Add(G);
                     }
                 }
                 else
                 {
-                    //then it needs only one round
                     if (temp.Burst <= TimeQuantum)
                     {
+                        //it needs only one round
                         G.finish = processesDataList[i].Burst + lastArrival;
-                        ganttChartResultList.Add(G);
                         lastArrival = G.finish;
+                        //add result to gantt chart array list
+                        ganttChartResultList.Add(G);
+                        //set exit time for current process
                         processesDataList[i].setExitTime(lastArrival);
 
                     }
@@ -117,10 +120,13 @@ namespace WindowsFormsApplication1
                     {
                         G.finish = TimeQuantum + lastArrival;
                         lastArrival = G.finish;
+                        //set exit time for current process
                         processesDataList[i].setExitTime(lastArrival);
                         double newBurst = processesDataList[i].Burst - TimeQuantum;
                         temp.Burst = newBurst;
+                        //enqueue process to the queue for continu working on it lateer
                         processesQueue.Enqueue(temp);
+                        //add result to gantt chart array list
                         ganttChartResultList.Add(G);
                     }
                 }
@@ -128,15 +134,19 @@ namespace WindowsFormsApplication1
 
             while (processesQueue.Count() > 0)
             {
+
                 Process temp = processesQueue.Dequeue();
                 ganttChartC G = new ganttChartC(temp.Name);
                 G.start = lastArrival;
-                //then it needs only one round
+
                 if (temp.Burst <= TimeQuantum)
                 {
+                    //it needs only one round
                     G.finish = temp.Burst + lastArrival;
-                    ganttChartResultList.Add(G);
                     lastArrival = G.finish;
+                    //add result to gantt chart array list
+                    ganttChartResultList.Add(G);
+                    //set exit time for current process
                     for (int i = 0; i < processesDataList.Count(); i++)
                     {
                         if (temp.Name == processesDataList[i].Name && temp.Arrival == processesDataList[i].Arrival)
@@ -150,6 +160,7 @@ namespace WindowsFormsApplication1
                 {
                     G.finish = TimeQuantum + lastArrival;
                     lastArrival = G.finish;
+                    //set exit time for current process
                     for (int i = 0; i < processesDataList.Count(); i++)
                     {
                         if (temp.Name == processesDataList[i].Name && temp.Arrival == processesDataList[i].Arrival)
@@ -157,9 +168,12 @@ namespace WindowsFormsApplication1
                             processesDataList[i].setExitTime(lastArrival);
                         }
                     }
+
                     double newBurst = temp.Burst - TimeQuantum;
                     temp.Burst = newBurst;
+                    //enqueue process to the queue for continu working on it lateer
                     processesQueue.Enqueue(temp);
+                    //add result to gantt chart array list
                     ganttChartResultList.Add(G);
                 }
             }
@@ -170,10 +184,13 @@ namespace WindowsFormsApplication1
                 double tat = processesDataList[i].getExitTime() - processesDataList[i].Arrival;
                 processesDataList[i].setTurnAroundTime(tat);
                 AverageTurnAroundTime += processesDataList[i].getTurnAroundTime();
+                //show turn around time for each process in console app
                 Console.WriteLine("Turn Around Time " + processesDataList[i].Name);
                 Console.WriteLine(tat.ToString());
             }
+            //calculate average turn around time   -- sum(turn around time for each process)/number of process --
             AverageTurnAroundTime /= numberOFProcesses;
+            //show average turn around time in console app
             Console.WriteLine("Average Turn Around Time");
             Console.WriteLine(AverageTurnAroundTime);
 
@@ -183,10 +200,13 @@ namespace WindowsFormsApplication1
                 double wt = processesDataList[i].getTurnAroundTime() - processesDataList[i].oldBurst;
                 processesDataList[i].setWaitingTime(wt);
                 AverageWaitingTime += processesDataList[i].getWaitingTime();
+                //show waiting time for each process in console app
                 Console.WriteLine("Waiting Times " + processesDataList[i].Name);
                 Console.WriteLine(wt.ToString());
             }
+            //calculate average turn around time   -- sum(waiting time for each process)/number of process --
             AverageWaitingTime /= numberOFProcesses;
+            //show average waiting time in console app
             Console.WriteLine("Average Waiting Time");
             Console.WriteLine(AverageWaitingTime);
 
@@ -198,11 +218,13 @@ namespace WindowsFormsApplication1
 
         }
 
+        // save time quantum to variable
         private void txtQuantum_TextChanged(object sender, EventArgs e)
         {
             TimeQuantum = Convert.ToInt32(txtQuantum.Text);
         }
 
+        //reset data grid views rows and data
         private void resetBtn_Click(object sender, EventArgs e)
         {
             dataGridView1.Rows.Clear();
@@ -213,6 +235,18 @@ namespace WindowsFormsApplication1
 
         }
     }
+
+    /*
+        class process
+        attributes :-
+            1- name : save process name
+            2- Arrival : save Arriveal Time
+            3- Burst : Save Burst Time which decreasing by code processing
+            4- oldBurst : Save Burst Time and not manupating it
+            5- ExitTime : Save process schudeling exit time to calculate turn around time
+            6- turnAroundTime : save turn around time to calculate waiting time
+            7- waitingTime : calculate the waiting time for process
+     */
     class Process
     {
         public string Name;
@@ -242,18 +276,15 @@ namespace WindowsFormsApplication1
         public double getTurnAroundTime() { return TurnAroundTime; }
         public double getWaitingTime() { return WaitingTime; }
 
-        public bool inList(List<Process> li, string name)
-        {
-            for (int i = 0; i < li.Count(); i++)
-            {
-                if (li[i].Name == name) return true;
-            }
-            return false;
-        }
     };
 
-
-
+    /*
+        class ganttchartC
+        attributes
+            1- name : save process name for each schduling entery
+            2- start : save start time for entery - the time when schduling entery enter cpu
+            3- finish : save finish time for entery - the time when schduling entery exit cpu
+     */
     public class ganttChartC
     {
         public string name;
